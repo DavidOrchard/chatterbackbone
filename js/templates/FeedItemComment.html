@@ -1,0 +1,25 @@
+<div class="feeditemcomment" >
+	<a href="/<%= user.id %>" class="feeditemcommentphoto">
+		<img src="<%= user.photo.smallPhotoUrl %>" />
+	</a>
+	<div class="feeditemcommentbodyandfooter">
+		<div class="feeditemcommentbody">
+			<div class="feedcommentuser">
+				<strong style='font-size:13px;'><%= user.name %></strong>
+			</div>
+			<div class="feedcommenttext">
+				<small  style='font-size:12px;'><%= body.text %></small>
+			</div>
+		</div>
+		<div class="feeditemcommentfooter">
+			<span class="feeditemcommentactions">
+				<a href="javascript:void(0);" onclick="">Like</a>
+				<a href="javascript:void(0);" style="display:none" onclick="">Unlike</a>
+				<span> . </span>
+				<a href="javascript:void(0);" onclick="" class="feeditemdeletelink">X</a>
+				<a href="javascript:void(0);" onclick=""><%= createdDate %></a>                            
+			</span>
+		</div>
+	</div>
+</div>
+

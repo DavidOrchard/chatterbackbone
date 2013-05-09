@@ -1,0 +1,33 @@
+<div class="feeditem">
+	<!-- TODO: hover -->
+	<span class="feeditemusericon">
+		<img src="<%= actor.photo.smallPhotoUrl %>"/>
+	</span>
+	<div class="feeditemcontent">
+		<div class="feeditembodyandfooter container">
+			<div class="feeditembody">
+				<div class="preamble">
+					<a href=""><%= actor.name %></a>
+				</div>
+				<span class="feeditemtext">
+					<%= body.text %>
+				</span>
+			</div>
+			<div class="feeditemfooter">
+				<span class="feeditemactions">
+					<a href="javascript:void(0);" onclick="">Comment</a>
+					<span> . </span>
+					<a href="javascript:void(0);" onclick="">Like</a>
+					<a href="javascript:void(0);" style="display:none" onclick="">Unlike</a>
+					<span> . </span>
+					<a href="javascript:void(0);" onclick="" class="feeditemdeletelink">X</a>
+					<a href="javascript:void(0);" onclick=""><%= createdDate %></a>                            
+				</span>
+			</div>
+		</div>
+		<div class="feeditemextras"
+			<div class="feeditemcomments" id="feed-item-comments-placeholder">
+			</div>
+		</div>
+	</div>
+</div>
