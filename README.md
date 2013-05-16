@@ -48,7 +48,17 @@ heroku branch contains a commit for the config information
 github branch does a 'git merge -s ours heroku^'
 Any further github merges from heroku work as expected.  This may be problematic again if the config is updated again.
 
-Rebase was done by making a conflict in the config, then fixing the conflict.  
+Rebase was done by making a conflict in the config, then fixing the conflict.  That didn't work either as the original change would show in github.
+
+Finally a solution!  
+git rebase heroku
+git rebase --onto <commit before the config> <commit of the config>
+then git push github github:master
+
+Now, trying the reverse and rebasing github onto heroku... Works!
+But wait, how do you specify the commit?  The rebase creates a new commit in the github branch with a new id.  The solution is to give the commit a well defined message such as 'actual config data', and then use the naming in the rebase --onto, such as
+"git rebase --onto HEAD^{'/actual config data'}^ HEAD^{'/actual config data'}"
+I suggest combining these two rebase commands into one to make sure you do both.
 
 Modularity and re-use across desktop/mobile is harder than it ought to be.  Adding a /m/index.html and a different main.js as mobile-main.js has the result that the mobile specific code like mobile-main can't be in a separate directory because the js references in main are all off on the dir structure.  Maybe there's a require.js equivalent of base href that can be passed in to a main?
 
