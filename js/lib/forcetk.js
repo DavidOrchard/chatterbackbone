@@ -156,7 +156,7 @@ if (forcetk.Client === undefined) {
      */
     forcetk.Client.prototype.ajax = function(path, callback, error, method, payload, retry) {
         var that = this;
-        var url = this.instanceUrl + '/services/data' + path;
+        var url = this.instanceUrl + ( path.indexOf("/services/data") > -1 ? "" : '/services/data' ) + path;
 
         return $j.ajax({
             type: method || "GET",

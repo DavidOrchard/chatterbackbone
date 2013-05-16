@@ -14,8 +14,8 @@ define([
   'forcetk',
   'views/Feed',
   'models/config',
-  'App'
-], function($, _, Backbone, forcetk, FeedView, Config, App){
+  'globals'
+], function($, _, Backbone, forcetk, FeedView, Config, Globals){
   var LoginView = Backbone.View.extend({
     loginURL: 'https://login.salesforce.com/',
       
@@ -54,10 +54,10 @@ define([
             });
             */
       } else {
-        App.client.setSessionToken(oauthResponse.access_token, null, oauthResponse.instance_url);
-        App.sf_token = this.client.sessionId;
+        Globals.getClient().setSessionToken(oauthResponse.access_token, null, oauthResponse.instance_url);
+        // Globals.sf_token = this.client.sessionId;
         var that = this;
-        this.client.ajax('/v27.0/chatter/feeds/news/me/feed-items',
+        Globals.getClient().ajax('/v27.0/chatter/feeds/news/me/feed-items',
                         function(data){
                           $(that.el).find('.preLogin').hide();  
                           FeedView.update_feed(data);
@@ -125,13 +125,13 @@ define([
     },
   
     usernamePasswordLogin : function(loginURL, consumerKey, proxyURL) {
-      this.client = new forcetk.Client(consumerKey, loginURL, proxyURL);
+      Globals.setClient( new forcetk.Client(consumerKey, loginURL, proxyURL));
       var proxyLoginURL = proxyURL + '&url=' + escape(loginURL);
       var username = Config.get('userName');
       var password = Config.get('password');
       var consumerSecret = Config.get('consumerSecret');
   
-      if(this.client.sessionId == null) {
+      if(Globals.getClient().sessionId == null) {
         var that = this;
         $.post(proxyLoginURL, 
           { grant_type:'password', 

@@ -1,5 +1,5 @@
 ### Chatter, Backbone, RequireJS,  + buzzword friends
-A demonstration of rendering a Salesforce.com chatter feed using backbone.js, Requirejs, jQuery Mobile and Jasmine.  Source available on github, dev version on my local machine and prod version on Heroku from single code base.  And yes Dorothy, keys, secrets, passwords etc. aren't on github.  It is intended for my experimentation purposes only.  More ideas: 
+A demonstration of rendering a Salesforce.com chatter feed using backbone.js, Requirejs, jQuery Mobile and Jasmine.  Displays a feed for the logged in user, renders comments.  Supports like and unlike.  Source available on github, dev version on my local machine and prod version on Heroku from single code base.  And yes Dorothy, keys, secrets, passwords etc. aren't on github.  It is intended for my experimentation purposes only.  More ideas: 
  - more mobile cowbell (mobile boilerplate, iscroll), 
  - Other toolkits: Foundation, Bootstrap, other grids
  - full desktop/mobile versions,
@@ -74,3 +74,6 @@ modularity with salesforce login is also harder than it ought to be.  Because th
 More on the modularity with SFDC, it would be nice to support a localhost and a heroku deployment of the exact same code, which isn't possible with the hard-coded redirect.
 
 SFDC Oauth docs are a bit of mess. A password oauth 2.0 example had grant_type="basic-credentials" instead of password at [http://help.salesforce.com/help/doc/en/remoteaccess_oauth_username_password_flow.htm](http://help.salesforce.com/help/doc/en/remoteaccess_oauth_username_password_flow.htm).  I'm pretty sure I saw a V27 password oauth 2.0 example say name=. but it requires username=.
+
+##### Salesforce examples
+http://wiki.developerforce.com/page/Getting_Started_with_the_Chatter_REST_API

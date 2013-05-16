@@ -10,24 +10,29 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 define([
   'underscore',
   'backbone',
+  'globals',
   'views/FeedItemComment',
   'models/FeedItemComment',
   // Using the Require.js text! plugin, we are loaded raw text
   // which will be used as our views primary template
-  'text!templates/FeedItem.html'
-], function(_, Backbone, FeedItemCommentView, FeedItemCommentModel, FeedItemTemplate){
+  'text!templates/FeedItem.html',
+], function(_, Backbone, Globals, FeedItemCommentView, FeedItemCommentModel, FeedItemTemplate){
   'use strict';
   var FeedItemView = Backbone.View.extend({
     events : {
-      'click .like'         : 'like',
-      'click .unlike'       : 'unlike',
-      'click .delete'       : 'delete'
+      'click .feeditemlikelink'         : 'like',
+      'click .feeditemunlikelink'       : 'unlike',
+      'click .feeditemdeletelink'       : 'delete'
     },
     
     template: _.template( FeedItemTemplate),
 
+    initialize: function(){
+      this.model.on('change', _.bind(this.render, this));
+    },  
+    
     render: function(){
-      this.$el.append(this.template(this.model.toJSON()));
+      this.$el.html(this.template(this.model.toJSON()));
       _.each(this.model.get('comments')['comments'], function (item) {
         console.log("got a comment");
         var feed_comment_view = new FeedItemCommentView({
@@ -39,15 +44,41 @@ define([
     },
     
     like: function() {
-
+      var url = this.model.get('url') + '/likes';
+      var that = this;
+      Globals.getClient().ajax(url,
+          function(data){
+            that.model.set('myLike', {id:data.id, url:data.url});
+            that.model.set('isLikedByCurrentUser', true);
+          },
+          function(error){
+            console.log(error);
+          },
+          'POST',
+          {},
+          false
+      );
     },
     
     unlike: function() {
-      
+      var url = this.model.get('myLike')['url'];
+      var that = this;
+      Globals.getClient().ajax(url,
+           function(data){
+             that.model.set('isLikedByCurrentUser', false);
+             that.model.set('myLike', {});
+            },
+           function(error){
+             console.log(error);
+           },
+           'DELETE',
+           {},
+           false
+       );
     },
     
     delete: function() {
-      
+      alert("delete");
     }
   });
  

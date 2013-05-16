@@ -7,19 +7,27 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-// Filename: app.js
+// Filename: global.js
 define([
   'jquery',
   'underscore',
-  'backbone',
-  'views/Login'
-], function($, _, Backbone, LoginView){
-    
-  var initialize = function(){
-    var loginView = new LoginView();
+  'backbone'
+], function($, _, Backbone){
+  var sf_token = null;  // Not currently used, but the clientUI uses it
+      
+  // Must be a better way to have a global way of sharing.
+  // Perhaps putting the client in a model to get the getter/setter for free?
+  var client = null;
+  var setClient = function( newClient ) {
+    client = newClient;
   };
   
+  var getClient = function() {
+    return client;
+  };
+
   return {
-      initialize: initialize
+      setClient: setClient,
+      getClient: getClient
   };
 });

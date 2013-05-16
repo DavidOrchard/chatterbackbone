@@ -1,5 +1,4 @@
-<div class="feeditem">
-	<!-- TODO: hover -->
+<div class="feeditem" data-id="<%= id %>" data-url="<%= url %>">
 	<span class="feeditemusericon">
 		<img src="<%= actor.photo.smallPhotoUrl %>"/>
 	</span>
@@ -15,13 +14,13 @@
 			</div>
 			<div class="feeditemfooter">
 				<span class="feeditemactions">
-					<a href="javascript:void(0);" onclick="">Comment</a>
+					<a href="javascript:void(0);" >Comment</a>
 					<span> . </span>
-					<a href="javascript:void(0);" class="like" onclick="">Like</a>
-					<a href="javascript:void(0);" class="unlike" style="display:none" onclick="">Unlike</a>
+					<a href="javascript:void(0);" class="feeditemlikelink" <%= isLikedByCurrentUser ? 'style="display:none"' : "" %> >Like</a>
+					<a href="javascript:void(0);" class="feeditemunlikelink" <%= isLikedByCurrentUser ? '' : 'style="display:none"' %> >Unlike</a>
 					<span> . </span>
-					<a href="javascript:void(0);" onclick="" class="feeditemdeletelink">X</a>
-					<a href="javascript:void(0);" onclick=""><%= createdDate %></a>                            
+					<a href="javascript:void(0);" class="feeditemdeletelink">X</a>
+					<a href="javascript:void(0);" ><%= createdDate %></a>                            
 				</span>
 			</div>
 		</div>
