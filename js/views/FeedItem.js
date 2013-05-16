@@ -18,6 +18,12 @@ define([
 ], function(_, Backbone, FeedItemCommentView, FeedItemCommentModel, FeedItemTemplate){
   'use strict';
   var FeedItemView = Backbone.View.extend({
+    events : {
+      'click .like'         : 'like',
+      'click .unlike'       : 'unlike',
+      'click .delete'       : 'delete'
+    },
+    
     template: _.template( FeedItemTemplate),
 
     render: function(){
@@ -30,8 +36,20 @@ define([
         this.$('#feed-item-comments-placeholder').append(feed_comment_view.render().el);
       }, this);
     return this;
+    },
+    
+    like: function() {
+
+    },
+    
+    unlike: function() {
+      
+    },
+    
+    delete: function() {
+      
     }
   });
-  
+ 
   return FeedItemView;
 });

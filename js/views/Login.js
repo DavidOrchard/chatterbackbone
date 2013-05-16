@@ -13,11 +13,10 @@ define([
   'backbone',
   'forcetk',
   'views/Feed',
-  'models/config'
-], function($, _, Backbone, forcetk, FeedView, Config){
+  'models/config',
+  'App'
+], function($, _, Backbone, forcetk, FeedView, Config, App){
   var LoginView = Backbone.View.extend({
-    client: null,
-    sf_token: null, // Not currently used, but the clientUI uses it
     loginURL: 'https://login.salesforce.com/',
       
     el: $( '#feed'),
@@ -55,8 +54,8 @@ define([
             });
             */
       } else {
-        this.client.setSessionToken(oauthResponse.access_token, null, oauthResponse.instance_url);
-        this.sf_token = this.client.sessionId;
+        App.client.setSessionToken(oauthResponse.access_token, null, oauthResponse.instance_url);
+        App.sf_token = this.client.sessionId;
         var that = this;
         this.client.ajax('/v27.0/chatter/feeds/news/me/feed-items',
                         function(data){

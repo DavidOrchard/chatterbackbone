@@ -17,6 +17,9 @@ define([
   'views/Feed',
   'views/Login'
 ], function($, _, Backbone, FeedItemsCollection, FeedItemsCollectionView, FeedView, LoginView){
+  client: null,
+  sf_token: null, // Not currently used, but the clientUI uses it
+  
    var initialize = function(){
 
     var loginView = new LoginView();
