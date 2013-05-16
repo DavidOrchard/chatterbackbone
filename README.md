@@ -1,5 +1,5 @@
 ### Chatter, Backbone, RequireJS,  + buzzword friends
-A demonstration of rendering a Salesforce.com chatter feed using backbone.js, Requirejs, jQuery Mobile and Jasmine.  Displays a feed for the logged in user, renders comments.  Supports like and unlike.  Source available on github, dev version on my local machine and prod version on Heroku from single code base.  And yes Dorothy, keys, secrets, passwords etc. aren't on github.  It is intended for my experimentation purposes only.  More ideas: 
+A demonstration of rendering a Salesforce.com chatter feed using backbone.js, Requirejs, jQuery Mobile and Jasmine.  Displays a feed for the logged in user, renders comments.  Supports like and unlike, posting to users feed.  Source available on github, dev version on my local machine and prod version on Heroku from single code base.  And yes Dorothy, keys, secrets, passwords etc. aren't on github.  It is intended for my experimentation purposes only.  More ideas: 
  - more mobile cowbell (mobile boilerplate, iscroll), 
  - Other toolkits: Foundation, Bootstrap, other grids
  - full desktop/mobile versions,
@@ -25,6 +25,8 @@ A demonstration of rendering a Salesforce.com chatter feed using backbone.js, Re
 
 ####Backbone
 
+The model synchronization is really nice, I love events.  I haven't yet figured out how to update just one part of a model in the UI (such as like/unlike change).
+
 Backbone Require Boilerplate is really nice.  I've purposefully re-invented much of it.
 
 having to cache bust to get .js updates is really awful for debugging.  adding debugger; statements then upload each bp is unusable.
@@ -34,6 +36,8 @@ As always, security is an afterthought.  The backbone and require examples usual
 Model Chaining/Inheritance of properties requires extra work.  Trying to make Model A and B then C that extends either A or B (ie, config) doesn't work out of the box. C = A.extend({propC:foo}); doesn't show propC in C, and C = A.extend({defaults:{propC:foo}}) blows away A's defaults.  The solution is ConfigModel = ConfigDev.extend({defaults: _.extend({},ConfigDev.prototype.defaults, generalConfig)}).  I think it's broken that extending one model requires a manual extension in each subclass.  It's called EXTENSION people.
 
 ####Require
+I got into circular dependencies a couple times, such as App depends upon Login which depends upon App, or FeedView depends upon PosterView which depends upon FeedView.  But these were simply solved by introducing a 3rd module (globals in the former), or correctly passing models and then using events in the latter.
+
 require.js behaves randomly on loading a js/newsfeedstatic.js file.  On localhost it loads but on Heroku the reference fails.  I'll load staticly for now
 
 ####Deployment
@@ -58,14 +62,12 @@ then git push github github:master
 Now, trying the reverse and rebasing github onto heroku... Works!
 But wait, how do you specify the commit?  The rebase creates a new commit in the github branch with a new id.  The solution is to give the commit a well defined message such as 'actual config data', and then use the naming in the rebase --onto, such as
 "git rebase --onto HEAD^{'/actual config data'}^ HEAD^{'/actual config data'}"
-I suggest combining these two rebase commands into one to make sure you do both.
+I suggest combining these two rebase and the push commands into one to make sure you do both.
 
 Modularity and re-use across desktop/mobile is harder than it ought to be.  Adding a /m/index.html and a different main.js as mobile-main.js has the result that the mobile specific code like mobile-main can't be in a separate directory because the js references in main are all off on the dir structure.  Maybe there's a require.js equivalent of base href that can be passed in to a main?
 
 ####Salesforce
 Despite remote access points and examples, still takes a while
-
-Many examples, perhaps too many.
 
 the forcetk UI for doing the auth in a separate window then catching the reload URI seems broken.  For now, I'll do it inline and live with the too lengthy url
 
@@ -73,7 +75,23 @@ modularity with salesforce login is also harder than it ought to be.  Because th
 
 More on the modularity with SFDC, it would be nice to support a localhost and a heroku deployment of the exact same code, which isn't possible with the hard-coded redirect.
 
-SFDC Oauth docs are a bit of mess. A password oauth 2.0 example had grant_type="basic-credentials" instead of password at [http://help.salesforce.com/help/doc/en/remoteaccess_oauth_username_password_flow.htm](http://help.salesforce.com/help/doc/en/remoteaccess_oauth_username_password_flow.htm).  I'm pretty sure I saw a V27 password oauth 2.0 example say name=. but it requires username=.
+SFDC Oauth docs have a few surprising errors. A password oauth 2.0 example had grant_type="basic-credentials" instead of password at [http://help.salesforce.com/help/doc/en/remoteaccess_oauth_username_password_flow.htm](http://help.salesforce.com/help/doc/en/remoteaccess_oauth_username_password_flow.htm).  I'm pretty sure I saw a V27 password oauth 2.0 example say name=. but it requires username=.
 
-##### Salesforce examples
-http://wiki.developerforce.com/page/Getting_Started_with_the_Chatter_REST_API
+Interesting marketing through the cloudspokes challenges: [http://www.cloudspokes.com/challenges/2125](http://www.cloudspokes.com/challenges/2125)
+
+##### Salesforce Backbone examples
+
+Many examples, perhaps too many.
+
+[http://blogs.developerforce.com/developer-relations/2013/04/build-mobile-web-apps-with-backbone-js-and-the-salesforce-platform.html](http://blogs.developerforce.com/developer-relations/2013/04/build-mobile-web-apps-with-backbone-js-and-the-salesforce-platform.html
+)
+
+[http://wiki.developerforce.com/page/Cross-Platform_Mobile_Development_with_Backbone](http://wiki.developerforce.com/page/Cross-Platform_Mobile_Development_with_Backbone
+)
+
+[http://www2.developerforce.com/mobile/getting-started/html5#backbone-heroku](http://www2.developerforce.com/mobile/getting-started/html5#backbone-heroku)
+
+[http://wiki.developerforce.com/page/Getting_Started_with_the_Chatter_REST_API](http://www2.developerforce.com/mobile/getting-started/html5#backbone-heroku)
+
+And there's more..
+

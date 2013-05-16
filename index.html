@@ -14,7 +14,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 	<meta charset="UTF-8">
 	<title>Title</title>
 	<link rel="stylesheet" href="css/app.css">
-	<link rel="stylesheet" href="css/views/feedcontainer.css">
+	<link rel="stylesheet" href="css/views/feeditemposter.css">
+	<link rel="stylesheet" href="css/views/feeditemscollection.css">
 	<link rel="stylesheet" href="css/views/feeditem.css">
 	<link rel="stylesheet" href="css/views/feeditemcomment.css">
 	
@@ -30,12 +31,14 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       <h1>Chatter Backbone + buzzword friends</h1>
     </div><!-- /header -->
     <div data-role="content">
-      <section id="feed">
+      <section id="feedContainer">
         <p><a href="#about">About</a> this.</p>
         <P class="preLogin">Login to fetch a live chatter feed.  You may have to tap login again after succesfully logging in due to a simple redirect bug.</p>
         <a data-role="button" data-mini="true"  data-inline="true" class="fixedLogin preLogin">Pre-assigned username/password Login</a>
         <a data-role="button" data-mini="true"  data-inline="true" class="dynamicLogin preLogin">Your own username/password Login</a>
         <P class="preLogin">Prior to login, the feed below is a static prefetched feed.</p>
+          <section id="feed-poster">
+            </section>
         <section id="feed-items-collection">
         </section>
 
@@ -48,7 +51,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         <h1>Chatter Backbone + buzzword friends</h1>
       </div><!-- /header -->
       <div data-role="content">
-        <p>A demonstration of rendering a Salesforce.com chatter feed using backbone.js, Requirejs, jQuery Mobile and Jasmine.  Source available on github, dev version on my local machine and prod version on Heroku from single code base. It is intended for my experimentation purposes only.</p>
+        <p>A demonstration of rendering a Salesforce.com chatter feed using backbone.js, Requirejs, jQuery Mobile and Jasmine.  Displays a feed for the logged in user, renders comments.  Supports like and unlike, posting to users feed.  Source available on github, dev version on my local machine and prod version on Heroku from single code base.  And yes Dorothy, keys, secrets, passwords etc. aren't on github.  It is intended for my experimentation purposes only.  </p>
         <p>See the <a href="#">chatter feed</a> in action.</p>
 		<p><a href="https://github.com/DavidOrchard/chatterbackbone/">Source on Github</a></p>
 		<p><a href="https://chatterbackbone.herokuapp.com">Web app</a></p>

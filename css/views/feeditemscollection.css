@@ -6,21 +6,16 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
+.feeditemscollection {
+  min-height: 300px;
+  padding-left: 8px;
+  padding-top: 1px;
+  padding-bottom: 5px;
+  line-height: 15px;
+  max-width: 560px;
+  overflow: visible;
+}
 
-define([
-  'jquery',
-  'underscore',
-  'backbone',
-  'text!templates/FeedItemComment.html'
-], function($, _, Backbone, FeedItemCommentTemplate){
-  var FeedItemCommentView = Backbone.View.extend({
-      template: _.template(FeedItemCommentTemplate),
-
-      render: function() {
-        this.$el.html(this.template(this.model.toJSON()));
-        return this;
-      }
-  });
-  
-  return FeedItemCommentView
-});
+body {
+  font: .75em arial,helvetica,clean,sans-serif;
+}

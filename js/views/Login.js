@@ -19,7 +19,7 @@ define([
   var LoginView = Backbone.View.extend({
     loginURL: 'https://login.salesforce.com/',
       
-    el: $( '#feed'),
+    el: $( '#feedContainer'),
   
     events : {
       'click .fixedLogin'         : 'fixedLogin',
