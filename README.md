@@ -39,7 +39,16 @@ require.js behaves randomly on loading a js/newsfeedstatic.js file.  On localhos
 ####Deployment
 Surprisingly little samples on configuration of dev vs prod
 
-github.com open source, local and heroku deployed is a bit tricky to make sure keys aren't copied to github.  I'm really wanted  [http://cogniton-mind.tumblr.com/post/1423976659/howto-gitignore-for-different-branches](http://cogniton-mind.tumblr.com/post/1423976659/howto-gitignore-for-different-branches) but I've had to fall back to [http://stackoverflow.com/questions/3868491/git-ignore-some-files-during-a-merge-keep-some-files-restricted-to-one-branch](http://stackoverflow.com/questions/3868491/git-ignore-some-files-during-a-merge-keep-some-files-restricted-to-one-branch).
+github.com open source, local and heroku deployed is a bit tricky to make sure keys aren't copied to github.  I'm really wanted  [http://cogniton-mind.tumblr.com/post/1423976659/howto-gitignore-for-different-branches](http://cogniton-mind.tumblr.com/post/1423976659/howto-gitignore-for-different-branches).  Then I really wanted [http://stackoverflow.com/questions/3868491/git-ignore-some-files-during-a-merge-keep-some-files-restricted-to-one-branch](http://stackoverflow.com/questions/3868491/git-ignore-some-files-during-a-merge-keep-some-files-restricted-to-one-branch) but that didn't work either.
+
+I had to choose between merging or rebase from heroku.  Merging would always show the merge commit:
+github branch contains everything and no config information
+heroku branch contains github branch
+heroku branch contains a commit for the config information
+github branch does a 'git merge -s ours heroku^'
+Any further github merges from heroku work as expected.  This may be problematic again if the config is updated again.
+
+Rebase was done by making a conflict in the config, then fixing the conflict.  
 
 Modularity and re-use across desktop/mobile is harder than it ought to be.  Adding a /m/index.html and a different main.js as mobile-main.js has the result that the mobile specific code like mobile-main can't be in a separate directory because the js references in main are all off on the dir structure.  Maybe there's a require.js equivalent of base href that can be passed in to a main?
 
