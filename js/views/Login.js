@@ -60,7 +60,8 @@ define([
         Globals.getClient().ajax('/v27.0/chatter/feeds/news/me/feed-items',
                         function(data){
                           $(that.el).find('.preLogin').hide();  
-                          FeedView.update_feed(data);
+                          debugger;
+                          Globals.getFeedView().update_feed(data);
                         },
                         function(error){
                           console.log(error);
@@ -82,7 +83,7 @@ define([
 
                         forcetkClient.ajax('/v27.0/chatter/feeds/news/me/feed-items',
                             function(data){
-                                FeedView.display_feed(data);
+                                 Globals.getFeedView().display_feed(data);
                             },
                             function(error){
                                 console.log(error);

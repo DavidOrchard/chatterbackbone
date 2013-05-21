@@ -12,11 +12,18 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'views/Login'
-], function($, _, Backbone, LoginView){
+  'globals',
+  'views/Feed',
+  'views/Login',
+  'collections/FeedItemsCollection',
+  
+], function($, _, Backbone, Globals, FeedView, LoginView, FeedItemsCollection){
     
   var initialize = function(){
     var loginView = new LoginView();
+    var feedModel = new FeedItemsCollection(news_feed_data['items']); 
+
+    Globals.setFeedView( new FeedView({model:feedModel})) ;
   };
   
   return {

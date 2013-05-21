@@ -12,14 +12,13 @@ define([
   'underscore',
   'backbone',
   'forcetk',
-  'collections/FeedItemsCollection',
   'views/FeedItemsCollection',
   'views/FeedItemPoster' /*,
   'newsfeedstatic'*/
-], function($, _, Backbone, forcetk, FeedItemsCollection, FeedItemsCollectionView, FeedItemPosterView/*, NewsFeedStatic*/){
+], function($, _, Backbone, forcetk, FeedItemsCollectionView, FeedItemPosterView/*, NewsFeedStatic*/){
   var FeedView = Backbone.View.extend({
   
-    el: $( '#feedContainer'),  
+//    el: $( '#feedContainer'),  
   
     initialize: function(){
       console.log("An object of FeedView was created");
@@ -41,7 +40,5 @@ define([
     }
   });
   
-  var feedModel = new FeedItemsCollection(news_feed_data['items']); 
-  
-  return new FeedView({model:feedModel});
+  return FeedView;
 });

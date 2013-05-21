@@ -19,7 +19,7 @@ define([
       'click .postersharebutton'         : 'post'
     },
     
-    el: $( '#feed-poster'),  
+    el: '#feed-poster',  
     
       template: _.template(FeedItemPosterTemplate),
 

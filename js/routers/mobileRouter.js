@@ -9,6 +9,8 @@ define([ "jquery","backbone", "jquerymobile" ], function( $, Backbone ) {
 
     // The Router constructor
     initialize: function() {
+      
+      this.route(/^([A-Za-z0-9]{18})$/, this.getEntity);
  
       // Tells Backbone to start watching for hashchange events
       Backbone.history.start();
@@ -32,6 +34,11 @@ define([ "jquery","backbone", "jquerymobile" ], function( $, Backbone ) {
     home: function() {
        $.mobile.changePage( "#chatter-feed", { reverse: false, changeHash: false } );
     },
+    
+    getEntity: function( entity ) {
+      alert("gotEntity" + entity);
+      $.mobile.changePage( "#");
+    }
      
   } );
 

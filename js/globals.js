@@ -25,9 +25,21 @@ define([
   var getClient = function() {
     return client;
   };
+  
+  var feedView = null;
+  var setFeedView = function( newFeedView ) {
+    feedView = newFeedView;
+  };
+  
+  var getFeedView = function() {
+    return feedView;
+  };
 
   return {
       setClient: setClient,
-      getClient: getClient
+      getClient: getClient,
+      setFeedView: setFeedView,
+      getFeedView: getFeedView
+      
   };
 });

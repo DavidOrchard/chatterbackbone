@@ -16,7 +16,6 @@ define([
 ], function($, _, Backbone, FeedItemView, FeedItemCollectionTemplate){
   var FeedItemsCollectionView = Backbone.View.extend({
     el: '#feed-items-collection',
-    tagName: 'ul',
     template: _.template( FeedItemCollectionTemplate),
     
     initialize: function(){

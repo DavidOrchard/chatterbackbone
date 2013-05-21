@@ -3,36 +3,62 @@
 define(["jquery", 
       "backbone",
       "views/Feed",
+      "views/FeedItemPoster",
+      "views/FeedItemsCollection",
       "views/Login",
       "models/FeedItem",
+      'collections/FeedItemsCollection',
       "routers/MobileRouter", 
       "jasminejquery"],
 
-    function($, Backbone, LoginView, FeedView, FeedItemModel, MobileRouter) {
+    function($, Backbone, FeedView, FeedItemPosterView, FeedItemsCollectionView, LoginView, FeedItemModel, FeedItemsCollection, MobileRouter) {
 
         // Test suite that includes all of the Jasmine unit tests   
         describe("Chatter Backbone Require", function() {
 
             // Backbone View Suite: contains all tests related to views
-/*            describe("Backbone views", function() {
+            describe("Backbone views", function() {
 
-                // Runs before every View spec
+              // Runs before every View spec
+              beforeEach(function() {
+
+                setFixtures('<section id="feedContainer"><section id="feed-poster"></section><section id="feed-items-collection"></section></section>');
+                this.feedModel = new FeedItemsCollection(news_feed_data['items']);
+              });
+
+              describe("FeedItemsCollectionView", function() {
                 beforeEach(function() {
-
-                    // Instantiates a new View instance
-                    this.view = new FeedView();
-
+                  this.feedItemsCollectionView = new FeedItemsCollectionView({
+                    collection: this.feedModel,
+                  });
+                });
+                
+                it('FeedItemsCollectionView returns the view object', function() {
+                  expect(this.feedItemsCollectionView.render()).toEqual(this.feedItemsCollectionView);
                 });
 
-                it("should contain the correct view element", function() {
-
-                    this.router = new MobileRouter();
-
+                it('feeditemscollectionview should have a tagname of "section"', function(){
+                  expect(this.feedItemsCollectionView.el.tagName.toLowerCase()).toBe('section');
                 });
+              });                 
+              // feedView doesn't render directly, renders feeditemcollection and poster
 
- 
+              describe("FeedItemsPosterView", function() {
+                beforeEach(function() {
+                  this.feedItemPosterView = new FeedItemPosterView({model:this.feedModel});
+                });
+                
+                it('feedItemPosterView returns the view object', function() {
+                  expect(this.feedItemPosterView.render()).toEqual(this.feedItemPosterView);
+                });
+                
+                it('feedposterview should have a tagname of "section"', function(){
+                  expect(this.feedItemPosterView.el.tagName.toLowerCase()).toBe('section');
+                });
+              });
+
             }); // End of the View test suite
-*/
+
             // Backbone Model Suite: contains all tests related to models
 /*            describe("Backbone models", function() {
 
@@ -98,8 +124,8 @@ define(["jquery",
             });
             
             it("should call the mobile router home method when there is a #home on the url", function() {
-
-                 // Navigates to a different route
+ 
+                 // Navigates to home
                  this.router.navigate("#home");
 
                  // Navigates to the default route

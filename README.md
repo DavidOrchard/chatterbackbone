@@ -40,6 +40,11 @@ I got into circular dependencies a couple times, such as App depends upon Login 
 
 require.js behaves randomly on loading a js/newsfeedstatic.js file.  On localhost it loads but on Heroku the reference fails.  I'll load staticly for now
 
+I keep on mixing up the define and name in require.  It's a pain to cut 'n paste a dependency from one file to another.  An array structure might be better, ie ['lib/jquery', 'jquery'],  The error reporting is non-existant, as the code will just not work so you have to put a debug.  Sometimes I miss static typed languages.
+
+####Jasmine
+I quite like Jasmine.  Nice and simple.  It caught 2 bugs.  It's awesome when testing tools catch bugs and aren't just overhead.  
+
 ####Deployment
 Surprisingly little samples on configuration of dev vs prod
 
