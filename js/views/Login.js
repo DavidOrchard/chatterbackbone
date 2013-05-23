@@ -60,7 +60,6 @@ define(function(require) {
         Globals.getClient().ajax('/v27.0/chatter/feeds/news/me/feed-items',
                         function(data){
                           $(that.el).find('.preLogin').hide();  
-                          debugger;
                           Globals.getFeedView().update_feed(data);
                         },
                         function(error){

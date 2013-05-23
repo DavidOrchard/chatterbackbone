@@ -11,38 +11,19 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 <head>
   <title>Jasmine Spec Runner</title>
   <link rel="stylesheet" type="text/css" href="css/jasmine.css">
-	<script src="js/newsfeedstatic.js"></script>
   <script src="js/lib/jasmine.js"></script>
   <script src="js/lib/jasmine-html.js"></script>
-
-<!--  <script src="js/lib/require.js" data-main="js/mobile-main"></script>-->
-<script>
-var require = {
-  baseUrl: "js",
-  paths: {
-    jquery: 'lib/jquery',
-    jquerymobile: 'lib/jquery.mobile',
-    underscore: 'lib/underscore',
-    backbone: 'lib/backbone',
-    forcetk: 'lib/forcetk',
-    forcetkui: 'lib/forcetk.ui',
-    
-    // Plugins
-    
-    jasminejquery: 'lib/plugins/jasmine-jquery',    
-    text: 'text'
-  }
-}
-</script>
+  <script src="js/lib/console-runner.js"></script>
 
 <script src="js/lib/require.js" ></script>
 </head>
 <body>
     <script>
-      // Add your Jasmine spec files here
-//      require(["js/lib/console-runner.js", "../phantom-jasmine/examples/js/example.js", "../phantom-jasmine/examples/js/example_spec.js"], function(spec) {
-        require(["js/lib/console-runner.js", "test/specs/spec"], function(cs, spec) {
+      require(["js/test/specs/spec"], function(spec) {
         var console_reporter = new jasmine.ConsoleReporter();
+        
+        // Hack solution from https://github.com/jcarver989/phantom-jasmine/issues/2
+        window.console_reporter = console_reporter; // <<< Add console_reporter to the window object
         jasmine.getEnv().addReporter(new jasmine.TrivialReporter());
         jasmine.getEnv().addReporter(console_reporter);
         jasmine.getEnv().execute();

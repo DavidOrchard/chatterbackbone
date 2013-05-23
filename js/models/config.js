@@ -21,6 +21,7 @@ define([
     	password : ''
     };
 	// ----------
+//	console.log("window.location = " + window.location);
 	switch( window.location.hostname ){
       case "localhost":
       case "127.0.0.1":

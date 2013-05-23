@@ -6,25 +6,52 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-define(function(require) {
-    var $ = require('jquery'),
-      _ = require('underscore'),
-      Backbone = require('backbone'),
-      forcetk = require('forcetk'),
-      Globals = require('globals'),
-      Config = require('models/config');
-      FeedItemModel = require('models/FeedItem'),
-      FeedItemCommentModel = require('models/FeedItemComment'),
-      FeedItemsCollection = require('collections/FeedItemsCollection'),
-      MobileRouter = require('routers/mobileRouter'),
-      FeedView = require('views/Feed'),
-      FeedItemView = require('views/FeedItem'),
-      FeedItemCommentView = require('views/FeedItemComment'),      
-      FeedItemsCollectionView = require('views/FeedItemsCollection'),
-      FeedItemPosterView = require('views/FeedItemPoster'),
-      LoginView = require('views/Login');
-      
-      require("jasminejquery");
+
+require.config( {
+  baseUrl: "js",
+  paths: {
+    jquery: 'lib/jquery',
+    jquerymobile: 'lib/jquery.mobile',
+    underscore: 'lib/underscore',
+    backbone: 'lib/backbone',
+    forcetk: 'lib/forcetk',
+    forcetkui: 'lib/forcetk.ui',
+    
+    // Plugins
+    
+    jasminejquery: 'lib/plugins/jasmine-jquery',    
+    text: 'text'
+  },
+  shim: {        
+        forcetk:{
+            deps:['jquery'],
+            exports:'forcetk'
+        },
+        
+        // Jasmine-jQuery plugin
+        "jasminejquery": {
+            deps:['jquery'],
+            exports:'jquery'
+         },
+         
+         newsfeedstatic:{
+           exports:'news_feed_data'      
+         } 
+    }
+});
+
+// Can this be done in Common JS style?  I tried once and it seemed to break phantomjs
+define(['jquery',
+"backbone",
+"views/Feed",
+"views/FeedItemPoster",
+"views/FeedItemsCollection",
+"models/FeedItem",
+'collections/FeedItemsCollection',
+"routers/mobileRouter", 
+'newsfeedstatic',
+"jasminejquery"],
+function($, Backbone, FeedView, FeedItemPosterView, FeedItemsCollectionView, FeedItemModel, FeedItemsCollection, MobileRouter, news_feed_data ) {
 
         // Test suite that includes all of the Jasmine unit tests   
         describe("Chatter Backbone Require", function() {

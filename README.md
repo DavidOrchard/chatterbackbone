@@ -48,7 +48,9 @@ I quite like Jasmine.  Nice and simple.  It caught 2 bugs.  It's awesome when te
 Surprisingly immature around creating backbone view events spies. Only 1 upvote on needing to call delegateEvents after registerying a spy. http://stackoverflow.com/questions/7590751/testing-backbone-js-view-events-with-jasmine
 
 ####Jasmine and automation
-Again, surprisingly immature around CI testing.  I'll look at PhantomJS using https://github.com/jcarver989/phantom-jasmine.  Best article on coverage I found was http://blog.johnryding.com/post/46757192364/javascript-code-coverage-with-phantomjs-jasmine-and
+Again, surprisingly immature around CI testing.  I'm using https://github.com/jcarver989/phantom-jasmine. I was stumped for a while by "unknown environment:" errors.  Turns that a couple of my modules - views/Login in particular - don't work well with phantom-jasmine.  But it works!
+
+ Best article on coverage I found was http://blog.johnryding.com/post/46757192364/javascript-code-coverage-with-phantomjs-jasmine-and
 
 ####Deployment
 Surprisingly little samples on configuration of dev vs prod

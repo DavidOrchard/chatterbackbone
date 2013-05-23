@@ -22,10 +22,8 @@ require.config({
     // Plugins
     
     jasminejquery: 'lib/plugins/jasmine-jquery',    
-    text: 'text'/*,
-    newsfeedstatic: 'newsfeedstatic'*/
+    text: 'text'
   },
-  //urlArgs: "ts="+new Date().getTime(),
   shim: {        
         forcetk:{
             deps:['jquery'],
@@ -37,10 +35,10 @@ require.config({
             deps:['jquery'],
             exports:'jquery'
          },
-        /*,
-    newsfeedstatic:{
-      exports:'news_feed_data'      
-    } */
+         
+         newsfeedstatic:{
+           exports:'news_feed_data'      
+         } 
     }
 
 });

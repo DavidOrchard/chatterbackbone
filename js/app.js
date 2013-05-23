@@ -24,12 +24,9 @@ define(function(require) {
       FeedItemCommentView = require('views/FeedItemComment'),      
       FeedItemsCollectionView = require('views/FeedItemsCollection'),
       FeedItemPosterView = require('views/FeedItemPoster'),
+      news_feed_data = require('newsfeedstatic'),
       LoginView = require('views/Login');
-      
-      //require("lib/jquery.mobile");
-      //require("lib/jasmine");
-      //require("lib/plugins/jasmine-jquery");
-    
+          
   var initialize = function(){
     var loginView = new LoginView();
     var feedModel = new FeedItemsCollection(news_feed_data['items']); 
