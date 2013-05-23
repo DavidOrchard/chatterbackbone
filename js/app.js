@@ -7,17 +7,28 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-// Filename: app.js
-define([
-  'jquery',
-  'underscore',
-  'backbone',
-  'globals',
-  'views/Feed',
-  'views/Login',
-  'collections/FeedItemsCollection',
-  
-], function($, _, Backbone, Globals, FeedView, LoginView, FeedItemsCollection){
+// Put all the requires here for easy cut 'n paste in other files
+define(function(require) {
+    var $ = require('jquery'),
+      _ = require('underscore'),
+      Backbone = require('backbone'),
+      forcetk = require('forcetk'),
+      Globals = require('globals'),
+      Config = require('models/config');
+      FeedItemModel = require('models/FeedItem'),
+      FeedItemCommentModel = require('models/FeedItemComment'),
+      FeedItemsCollection = require('collections/FeedItemsCollection'),
+      MobileRouter = require('routers/mobileRouter'),
+      FeedView = require('views/Feed'),
+      FeedItemView = require('views/FeedItem'),
+      FeedItemCommentView = require('views/FeedItemComment'),      
+      FeedItemsCollectionView = require('views/FeedItemsCollection'),
+      FeedItemPosterView = require('views/FeedItemPoster'),
+      LoginView = require('views/Login');
+      
+      //require("lib/jquery.mobile");
+      //require("lib/jasmine");
+      //require("lib/plugins/jasmine-jquery");
     
   var initialize = function(){
     var loginView = new LoginView();

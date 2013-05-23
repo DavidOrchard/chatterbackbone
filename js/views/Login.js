@@ -7,15 +7,15 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-define([
-  'jquery', 
-  'underscore',
-  'backbone',
-  'forcetk',
-  'views/Feed',
-  'models/config',
-  'globals'
-], function($, _, Backbone, forcetk, FeedView, Config, Globals){
+define(function(require) {
+    var $ = require('jquery'),
+      _ = require('underscore'),
+      Backbone = require('backbone'),
+      forcetk = require('forcetk'),
+      Globals = require('globals'),
+      Config = require('models/config');
+      FeedView = require('views/Feed');
+
   var LoginView = Backbone.View.extend({
     loginURL: 'https://login.salesforce.com/',
       

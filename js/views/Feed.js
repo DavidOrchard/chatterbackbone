@@ -7,38 +7,35 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-define([
-  'jquery', 
-  'underscore',
-  'backbone',
-  'forcetk',
-  'views/FeedItemsCollection',
-  'views/FeedItemPoster' /*,
-  'newsfeedstatic'*/
-], function($, _, Backbone, forcetk, FeedItemsCollectionView, FeedItemPosterView/*, NewsFeedStatic*/){
-  var FeedView = Backbone.View.extend({
-  
-//    el: $( '#feedContainer'),  
-  
+define(function(require) {
+  var $ = require('jquery'),
+      _ = require('underscore'),
+      Backbone = require('backbone'),
+      forcetk = require('forcetk'),
+      FeedItemsCollectionView = require('views/FeedItemsCollection'),
+      FeedItemPosterView = require('views/FeedItemPoster');
+      
+  return Backbone.View.extend({
+
+     el: $( '#feedContainer'),  
+
     initialize: function(){
       console.log("An object of FeedView was created");
       this.model.on('reset', _.bind(this.render, this));
       this.model.on('add', _.bind(this.render, this));
       this.render();
     },  
-  
+
     render : function () {
       this.feed_view = new FeedItemsCollectionView({
           collection: this.model,
-      });
-    
+      });    
     },
-  
+
     update_feed : function(feed_items){
       this.model.reset(feed_items['items']);
       this.poster = new FeedItemPosterView({feedmodel:this.model});
     }
   });
-  
-  return FeedView;
+
 });

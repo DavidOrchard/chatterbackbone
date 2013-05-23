@@ -1,17 +1,30 @@
-// Jasmine Unit Testing Suite
-// --------------------------
-define(["jquery", 
-      "backbone",
-      "views/Feed",
-      "views/FeedItemPoster",
-      "views/FeedItemsCollection",
-      "views/Login",
-      "models/FeedItem",
-      'collections/FeedItemsCollection',
-      "routers/MobileRouter", 
-      "jasminejquery"],
+/*Copyright (C) 2013 David Orchard
 
-    function($, Backbone, FeedView, FeedItemPosterView, FeedItemsCollectionView, LoginView, FeedItemModel, FeedItemsCollection, MobileRouter) {
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/
+define(function(require) {
+    var $ = require('jquery'),
+      _ = require('underscore'),
+      Backbone = require('backbone'),
+      forcetk = require('forcetk'),
+      Globals = require('globals'),
+      Config = require('models/config');
+      FeedItemModel = require('models/FeedItem'),
+      FeedItemCommentModel = require('models/FeedItemComment'),
+      FeedItemsCollection = require('collections/FeedItemsCollection'),
+      MobileRouter = require('routers/mobileRouter'),
+      FeedView = require('views/Feed'),
+      FeedItemView = require('views/FeedItem'),
+      FeedItemCommentView = require('views/FeedItemComment'),      
+      FeedItemsCollectionView = require('views/FeedItemsCollection'),
+      FeedItemPosterView = require('views/FeedItemPoster'),
+      LoginView = require('views/Login');
+      
+      require("jasminejquery");
 
         // Test suite that includes all of the Jasmine unit tests   
         describe("Chatter Backbone Require", function() {
@@ -44,8 +57,13 @@ define(["jquery",
               // feedView doesn't render directly, renders feeditemcollection and poster
 
               describe("FeedItemsPosterView", function() {
+                var posterShareButton = ".postersharebutton";;
                 beforeEach(function() {
                   this.feedItemPosterView = new FeedItemPosterView({model:this.feedModel});
+                  spyOnEvent(posterShareButton, 'click');
+                  spyOn(this.feedItemPosterView, 'post');
+                  this.feedItemPosterView.delegateEvents();
+                  
                 });
                 
                 it('feedItemPosterView returns the view object', function() {
@@ -54,6 +72,16 @@ define(["jquery",
                 
                 it('feedposterview should have a tagname of "section"', function(){
                   expect(this.feedItemPosterView.el.tagName.toLowerCase()).toBe('section');
+                });
+                
+                it('postersharebutton click should generate click event', function() {                  
+                  $(posterShareButton).click();
+                  expect('click').toHaveBeenTriggeredOn($(posterShareButton));
+                });
+                
+                it('postersharebutton click should call post function', function() {                  
+                  $(posterShareButton).click();
+                  expect(this.feedItemPosterView.post).toHaveBeenCalled();
                 });
               });
 

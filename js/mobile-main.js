@@ -33,7 +33,10 @@ require.config({
         },
         
         // Jasmine-jQuery plugin
-        "jasminejquery": ["jquery"]
+        "jasminejquery": {
+            deps:['jquery'],
+            exports:'jquery'
+         },
         /*,
     newsfeedstatic:{
       exports:'news_feed_data'      
@@ -42,14 +45,12 @@ require.config({
 
 });
 
-require([
+define(function(require) {
+    var $ = require('jquery'),
+      Backbone = require('backbone'),
+      App = require('app'),
+      MobileRouter = require('routers/mobileRouter');
 
-  'jquery',
-  'backbone',
-  // Load our app module and pass it to our definition function
-  'app',
-  'routers/mobileRouter',
-], function($, Backbone, App, Mobile){
 // mobile init isn't fired at this time.  Loaded earlier somehow
 //  $( document ).on( "mobileinit",
     // Set up the "mobileinit" handler before requiring jQuery Mobile's module
@@ -63,12 +64,7 @@ require([
       App.initialize();     
 //    }
 //  );
-  require( [ "jquerymobile" ], function() {
-    // Instantiates a new Backbone.js Mobile Router
-    this.router = new Mobile();
-  });
+
+    this.router = new MobileRouter();
   
-    
- 
-var sf_token;
 });

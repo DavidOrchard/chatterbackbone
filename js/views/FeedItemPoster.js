@@ -7,13 +7,14 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-define([
-  'jquery',
-  'underscore',
-  'backbone',
-  'globals',
-  'text!templates/FeedItemPoster.html'
-], function($, _, Backbone, Globals, FeedItemPosterTemplate){
+define(function(require){
+  'use strict';
+  var $ = require('jquery'),
+    _ = require('underscore'),
+    Backbone = require('backbone'),
+    Globals = require('globals'),
+    FeedItemPosterTemplate = require('text!templates/FeedItemPoster.html');
+
   var FeedItemPosterView = Backbone.View.extend({
     events : {
       'click .postersharebutton'         : 'post'
@@ -32,6 +33,7 @@ define([
         return this;
       },
       post: function() {
+        debugger;
         var that = this;
         Globals.getClient().ajax('/v27.0/chatter/feeds/news/me/feed-items',
                          function(data){

@@ -7,16 +7,17 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-define([
-  'jquery', 
-  'underscore',
-  'backbone',
-  'views/FeedItem',
-  'text!templates/FeedItemsCollection.html'
-], function($, _, Backbone, FeedItemView, FeedItemCollectionTemplate){
+define(function(require){
+  'use strict';
+  var $ = require('jquery'),
+    _ = require('underscore'),
+    Backbone = require('backbone'),
+    FeedItemView = require('views/FeedItem'),
+    FeedItemsCollectionTemplate = require('text!templates/FeedItemsCollection.html');
+
   var FeedItemsCollectionView = Backbone.View.extend({
     el: '#feed-items-collection',
-    template: _.template( FeedItemCollectionTemplate),
+    template: _.template( FeedItemsCollectionTemplate),
     
     initialize: function(){
         //Render Views
@@ -31,7 +32,7 @@ define([
     
     render_feed_items: function() {       
       _.each(this.collection.models, function (item) {
-          feed_item_view = new FeedItemView({
+          var feed_item_view = new FeedItemView({
               model: item
           });
           this.$('#feed-items-collection-placeholder').append(feed_item_view.render().el);
