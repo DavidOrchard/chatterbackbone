@@ -43,9 +43,7 @@ casper.test.begin('The fixedLogin exists', function suite(test) {
   });
   casper.waitForText(posterInput, 
     function success() {
- //     this.test.assertEval(function(posterInput) { return document.querySelector(".feeditembody span").textContent.indexOf(posterInput) > 0;}, posterInput);
- //   var evalResult = casper.evaluate(function(posterInput) { return document.querySelector(".feeditembody span").textContent.indexOf(posterInput) > 0;}, posterInput);
-    this.test.assertTruthy(casper.evaluate(function(posterInput) { return document.querySelector(".feeditembody span").textContent.indexOf(posterInput) > 0;}, posterInput));
+      this.test.assertTruthy(casper.evaluate(function(posterInput) { return document.querySelector(".feeditembody span").textContent.indexOf(posterInput) > 0;}, posterInput));
     },
     function fail() {
         this.test.assertExists("textarea");
