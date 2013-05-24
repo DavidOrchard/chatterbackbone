@@ -12,7 +12,7 @@ define(function(require){
   var $ = require('jquery'),
     _ = require('underscore'),
     Backbone = require('backbone'),
-    Globals = require('globals'),
+    Client = require('client'),
     FeedItemPosterTemplate = require('text!templates/FeedItemPoster.html');
 
   var FeedItemPosterView = Backbone.View.extend({
@@ -33,9 +33,8 @@ define(function(require){
         return this;
       },
       post: function() {
-        debugger;
         var that = this;
-        Globals.getClient().ajax('/v27.0/chatter/feeds/news/me/feed-items',
+        Client.getClient().ajax('/v27.0/chatter/feeds/news/me/feed-items',
                          function(data){
                            $(that.$el).find(".postertextarea")[0].value = "";
                            that.options.feedmodel.unshift(data);

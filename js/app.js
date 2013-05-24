@@ -14,6 +14,7 @@ define(function(require) {
       Backbone = require('backbone'),
       forcetk = require('forcetk'),
       Globals = require('globals'),
+      Client = require('client'),
       Config = require('models/config');
       FeedItemModel = require('models/FeedItem'),
       FeedItemCommentModel = require('models/FeedItemComment'),

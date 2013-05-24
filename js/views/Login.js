@@ -13,6 +13,7 @@ define(function(require) {
       Backbone = require('backbone'),
       forcetk = require('forcetk'),
       Globals = require('globals'),
+      Client = require('client'),
       Config = require('models/config');
       FeedView = require('views/Feed');
 
@@ -54,10 +55,10 @@ define(function(require) {
             });
             */
       } else {
-        Globals.getClient().setSessionToken(oauthResponse.access_token, null, oauthResponse.instance_url);
+        Client.getClient().setSessionToken(oauthResponse.access_token, null, oauthResponse.instance_url);
         // Globals.sf_token = this.client.sessionId;
         var that = this;
-        Globals.getClient().ajax('/v27.0/chatter/feeds/news/me/feed-items',
+        Client.getClient().ajax('/v27.0/chatter/feeds/news/me/feed-items',
                         function(data){
                           $(that.el).find('.preLogin').hide();  
                           Globals.getFeedView().update_feed(data);
@@ -125,13 +126,13 @@ define(function(require) {
     },
   
     usernamePasswordLogin : function(loginURL, consumerKey, proxyURL) {
-      Globals.setClient( new forcetk.Client(consumerKey, loginURL, proxyURL));
+      Client.setClient( new forcetk.Client(consumerKey, loginURL, proxyURL));
       var proxyLoginURL = proxyURL + '&url=' + escape(loginURL);
       var username = Config.get('userName');
       var password = Config.get('password');
       var consumerSecret = Config.get('consumerSecret');
   
-      if(Globals.getClient().sessionId == null) {
+      if(Client.getClient().sessionId == null) {
         var that = this;
         $.post(proxyLoginURL, 
           { grant_type:'password', 

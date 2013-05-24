@@ -1,6 +1,6 @@
 <div class="feeditem" data-id="<%= id %>" data-url="<%= url %>">
 	<span class="feeditemusericon">
-		<img src="<%= actor.photo.smallPhotoUrl %>"/>
+		<img src="<%= actor.photo.smallPhotoUrl %><%if (obj.sid) {%>?oauth_token=<%=sid%><%}%>"/>
 	</span>
 	<div class="feeditemcontent">
 		<div class="feeditembodyandfooter container">

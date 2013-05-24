@@ -1,6 +1,6 @@
 <div class="feeditemcomment" >
     <a href="/<%= user.id %>" class="feeditemcommentphoto">
-<img src="<%= user.photo.smallPhotoUrl %>" />
+<img src="<%= user.photo.smallPhotoUrl %><%if (obj.sid) {%>?oauth_token=<%=sid%><%}%>" />
 </a>
 <div class="feeditemcommentbodyandfooter">
 <div class="feeditemcommentbody">

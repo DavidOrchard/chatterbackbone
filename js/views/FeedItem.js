@@ -13,7 +13,7 @@ define(function(require){
     _ = require('underscore'),
     Backbone = require('backbone'),
     FeedItemTemplate = require('text!templates/FeedItem.html'),
-    Globals = require('globals'),
+    Client = require('client'),
     FeedItemCommentModel = require('models/FeedItemComment'),
     FeedItemCommentView = require('views/FeedItemComment');
     
@@ -24,14 +24,15 @@ define(function(require){
       'click .feeditemdeletelink'       : 'delete'
     },
     
-    template: _.template( FeedItemTemplate),
+    template: _.template(FeedItemTemplate),
 
     initialize: function(){
       this.model.on('change', _.bind(this.render, this));
     },  
     
     render: function(){
-      this.$el.html(this.template(this.model.toJSON()));
+      var newModel = _.extend((Client.getClient() != null ? {sid: Client.getClient().sessionId } : {}), this.model.toJSON());
+      this.$el.html(this.template(newModel));
       _.each(this.model.get('comments')['comments'], function (item) {
         console.log("got a comment");
         var feed_comment_view = new FeedItemCommentView({
@@ -45,7 +46,7 @@ define(function(require){
     like: function() {
       var url = this.model.get('url') + '/likes';
       var that = this;
-      Globals.getClient().ajax(url,
+      Client.getClient().ajax(url,
           function(data){
             that.model.set('myLike', {id:data.id, url:data.url});
             that.model.set('isLikedByCurrentUser', true);
@@ -62,7 +63,7 @@ define(function(require){
     unlike: function() {
       var url = this.model.get('myLike')['url'];
       var that = this;
-      Globals.getClient().ajax(url,
+      Client.getClient().ajax(url,
            function(data){
              that.model.set('isLikedByCurrentUser', false);
              that.model.set('myLike', {});

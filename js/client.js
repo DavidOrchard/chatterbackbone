@@ -7,25 +7,12 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-define(function(require){
-  'use strict';
-  var $ = require('jquery'),
-    _ = require('underscore'),
-    Backbone = require('backbone'),
-    Client = require('client'),
-    FeedItemCommentTemplate = require('text!templates/FeedItemComment.html');
-
-  var FeedItemCommentView = Backbone.View.extend({
+// Filename: client.js
+define(function(){
+  var client = null;
     
-      template: _.template(FeedItemCommentTemplate),
-
-      render: function() {
-        var newModel = _.extend((Client.getClient() != null ? {sid: Client.getClient().sessionId } : {}), this.model.toJSON());
-        
-        this.$el.html(this.template(newModel));
-        return this;
-      }
-  });
-  
-  return FeedItemCommentView
+  return {
+      setClient: function( newClient ) { client = newClient; },
+      getClient: function() { return client; },
+  };
 });
