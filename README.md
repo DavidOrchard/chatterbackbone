@@ -1,5 +1,5 @@
-### Chatter, Backbone, RequireJS,  + buzzword friends
-A demonstration of rendering a Salesforce.com chatter feed using backbone.js, Requirejs, jQuery Mobile and Jasmine.  Displays a feed for the logged in user, renders comments.  Supports like and unlike, posting to users feed.  Source available on github, dev version on my local machine and prod version on Heroku from single code base.  And yes Dorothy, keys, secrets, passwords etc. aren't on github.  It is intended for my experimentation purposes only.  More ideas: 
+### Chatter, Backbone, RequireJS, Jasmine, CasperJS + buzzword friends
+A demonstration of rendering a Salesforce.com chatter feed using backbone.js, Requirejs, jQuery Mobile with Jasmine and CasperJS testing.  Displays a feed for the logged in user, renders comments.  Supports like and unlike, posting to users feed.  Source available on github, dev version on my local machine and prod version on Heroku from single code base.  And yes Dorothy, keys, secrets, passwords etc. aren't on github.  It is intended for my experimentation purposes only.  More ideas: 
  - more mobile cowbell (mobile boilerplate, iscroll), 
  - Other toolkits: Foundation, Bootstrap, other grids
  - full desktop/mobile versions,
@@ -51,6 +51,41 @@ Surprisingly immature around creating backbone view events spies. Only 1 upvote 
 Again, surprisingly immature around CI testing.  I'm using https://github.com/jcarver989/phantom-jasmine. I was stumped for a while by "unknown environment:" errors.  Turns that a couple of my modules - views/Login in particular - don't work well with phantom-jasmine.  But it works!
 
  Best article on coverage I found was http://blog.johnryding.com/post/46757192364/javascript-code-coverage-with-phantomjs-jasmine-and
+
+####CasperJS
+Another JS framework testing JS, this time for integration and browser testing.  I like that it creates a full browser view like selenium.  The screen capture capabilities worked pretty well.  I'd like to debug in the running session and set some breakpoints and see what's in CSS/XPath scope.  The usual issues of XPath vs CSS vs JQuery for selectors.  And getting variables in and out of the running browser.  The usual and painful JS in JS issue of how to debug errors like:
+\#    type: assertEval
+\#    file: caspertest.js:47
+\#    code: this.test.assertEval(function(posterInput) { return document.querySelector(".feeditembody span").textContent.indexOf(posterInput) > 0;}, posterInput);
+\#    subject: false
+\#    fn: undefined
+\#    params: undefined
+
+With code that is
+var rand = Math.random(100000);
+var posterInput = "from gene" + rand;
+casper.waitForText(posterInput, 
+   function success() {
+       this.test.assertEval(function(posterInput) { return document.querySelector(".feeditembody span").textContent.indexOf(posterInput) > 0;}, posterInput);
+   },
+   
+and the browser says
+document.querySelector(".feeditembody span").textContent.indexOf("gene0.4558150360826403") > 0
+is true
+
+The following code does work:
+var rand = Math.random(100000);
+var posterInput = "from gene" + rand;
+ casper.waitForText(posterInput, 
+ function success() {
+   this.test.assertTruthy(casper.evaluate(function(posterInput) { return document.querySelector(".feeditembody span").textContent.indexOf(posterInput) > 0;}, posterInput));
+ },
+
+sigh.
+
+apparently the result in the first case assertEval(foo) does not evaluate, and in the second assertTruthy(casper.evaluate(foo)) works, even though assertEval is supposed to check for a true return.
+
+I typed in a lot of mistaken assertTrue, assertFalse, assertNull, etc. that surprisingly aren't valid function calls.  No editor hints that they are wrong.
 
 ####Deployment
 Surprisingly little samples on configuration of dev vs prod
