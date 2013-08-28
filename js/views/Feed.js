@@ -33,7 +33,7 @@ define(function(require) {
     },
 
     update_feed : function(feed_items){
-      this.model.reset(feed_items['items']);
+      this.model.reset(feed_items.items);
       this.poster = new FeedItemPosterView({feedmodel:this.model});
     }
   });

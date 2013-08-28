@@ -63,7 +63,7 @@ function($, Backbone, FeedView, FeedItemPosterView, FeedItemsCollectionView, Fee
               beforeEach(function() {
 
                 setFixtures('<section id="feedContainer"><section id="feed-poster"></section><section id="feed-items-collection"></section></section>');
-                this.feedModel = new FeedItemsCollection(news_feed_data['items']);
+                this.feedModel = new FeedItemsCollection(news_feed_data.items);
               });
 
               describe("FeedItemsCollectionView", function() {
@@ -84,7 +84,7 @@ function($, Backbone, FeedView, FeedItemPosterView, FeedItemsCollectionView, Fee
               // feedView doesn't render directly, renders feeditemcollection and poster
 
               describe("FeedItemsPosterView", function() {
-                var posterShareButton = ".postersharebutton";;
+                var posterShareButton = ".postersharebutton";
                 beforeEach(function() {
                   this.feedItemPosterView = new FeedItemPosterView({model:this.feedModel});
                   spyOnEvent(posterShareButton, 'click');
