@@ -87,6 +87,9 @@ apparently the result in the first case assertEval(foo) does not evaluate, and i
 
 I typed in a lot of mistaken assertTrue, assertFalse, assertNull, etc. that surprisingly aren't valid function calls.  No editor hints that they are wrong.
 
+####Grunt
+I added grunt automation.  Seems ok.  Nothing special compared to make, ant, maven so far.  I first tried automating the uglify, but that didn't work well with requirejs.  The grunt requirejs plugin doesn't seem to do the job either.  The JSHint plugin worked fine.  However, adding grunt's node.js package.json file broke the php deploy to heroku.  I tried telling heroku using the Procfile that it was php not node using web: sh boot.sh but that didn't work.  The simple solution was to create a grunt task that does a git mv package.json package.json2, push, the reset HEAD~1 --hard.   No joy getting the jasmine tests running automated.  
+
 ####Deployment
 Surprisingly little samples on configuration of dev vs prod
 

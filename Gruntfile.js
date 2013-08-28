@@ -11,8 +11,11 @@ module.exports = function(grunt) {
           'heroku': {
                 command: 'git mv package.json package.json2; git add .; git commit -m "move package.json" --no-edit; git push heroku heroku2:master; heroku ps:scale web=1; git reset HEAD~1 --hard'
               },
+          'githubrb': {
+                command: 'git rebase --onto HEAD^{\'/actual config data\'}^ HEAD^{\'/actual config data\'}'
+          },
           'github': {
-                command: 'git rebase --onto HEAD^{\'/actual config data\'}^ HEAD^{\'/actual config data\'};git push github github2:master;'
+                command: 'git push -f github github2:master;'
           }
               
         },
@@ -77,4 +80,5 @@ module.exports = function(grunt) {
 //  grunt.registerTask('default', ['uglify']);
   grunt.registerTask('heroku', ['shell:heroku']);
   grunt.registerTask('github', ['shell:github']);
+  grunt.registerTask('githubrb', ['shell:githubrb', 'shell:github']);
 };
