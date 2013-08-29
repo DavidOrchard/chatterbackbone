@@ -15,13 +15,16 @@ define([
 ], function(_, Backbone, ConfigDev, ConfigProd){
 	// config Model
 	// This a factory.  Seems overly hard
-	var ConfigModel;
+	var ConfigModel = null;
 	var generalConfig = { 
 			userName :'',
     	password : ''
     };
 	// ----------
-//	console.log("window.location = " + window.location);
+//	console.log("window.location.hostname = " + window.location.hostname);
+//	console.log("window.location.href = " + window.location.href);
+// Jasmine in PhantomJS doesn't have a window.location.hostname, and href points to file: URI;
+// Jasmine in PhantomJS doesn't like throw "foo" or throw new Error;
 	switch( window.location.hostname ){
       case "localhost":
       case "127.0.0.1":
@@ -31,9 +34,9 @@ define([
 	  case "herokuapp.com":
         ConfigModel = ConfigProd.extend({defaults: _.extend({},ConfigProd.prototype.defaults, generalConfig)});
         break;
-      default:
-        throw('Unknown environment: ' + window.location.hostname );
-    }
+    default:
+        ConfigModel = ConfigDev.extend({defaults: _.extend({},ConfigDev.prototype.defaults, generalConfig)});
+   }
 	return new ConfigModel();
 
 });

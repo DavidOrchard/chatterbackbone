@@ -11,6 +11,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 // Require.js allows us to configure shortcut alias
 require.config({
+  baseUrl: 'js',
   paths: {
     jquery: 'lib/jquery',
     jquerymobile: 'lib/jquery.mobile',

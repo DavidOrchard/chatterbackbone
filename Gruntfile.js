@@ -32,14 +32,23 @@ module.exports = function(grunt) {
        ],
      },
     jasmine : {
-      src : 'js/**/*.js',
+      src : ['js/**/*.js', '!js/lib/**/*.js', '!js/test/casper*.js'],
       options : {
         specs : 'js/test/specs/spec.js',
         template: require('grunt-template-jasmine-requirejs'),
         templateOptions: {
+          baseUrl: 'js',
           requireConfigFile: 'js/mobile-main.js'
         }      
       }
+    },
+    casperjs: {
+      options: {
+        async: {
+          parallel: false
+        }
+      },
+      files: ['js/test/caspertest.js']
     },
     requirejs: {
       production: {
@@ -67,6 +76,7 @@ module.exports = function(grunt) {
 
   grunt.loadNpmTasks('grunt-contrib-requirejs');
   grunt.loadNpmTasks('grunt-contrib-jasmine');
+  grunt.loadNpmTasks('grunt-casperjs');
   grunt.loadNpmTasks('grunt-contrib-jshint');
    grunt.loadNpmTasks('grunt-contrib-uglify');
    grunt.loadNpmTasks('grunt-shell');
